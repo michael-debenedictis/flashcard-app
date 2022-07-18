@@ -13,16 +13,26 @@ function StudyCard( { id } ) {
   }]
   const [cards, setCards] = useState([...initialCards]);
   useEffect(() => {
+    const abortController = new AbortController();
     async function loadCards() {
-      const response = await readCards();
-      console.log(response, 'hi')
-      if (response) {
-        if (response.length > 0) {
-          const filtered = response.filter(item => item.deckId === parseFloat(id))
-          console.log(filtered)
-          if (filtered.length > 0) {
-            setCards([...filtered]);
+      try {
+        const response = await readCards(abortController.signal)
+        console.log(response, 'hi')
+        if (response) {
+          if (response.length > 0) {
+            const filtered = response.filter(item => item.deckId === parseFloat(id))
+            console.log(filtered)
+            if (filtered.length > 0) {
+              setCards([...filtered]);
+            }
           }
+        }
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Ignore `AbortError`
+          console.log('sup')
+        } else {
+          throw error;
         }
       }
     }
@@ -67,7 +77,7 @@ function StudyCard( { id } ) {
     })
   }
 
-  if (cardsState.front && cards.length >= 3) {
+  if (cardsState.front) {
     return (
       <div style={{ border: "solid" }}>
         <h3>Card {cardsState.index + 1} of {cards.length}</h3>
@@ -78,7 +88,7 @@ function StudyCard( { id } ) {
         </button>
       </div>
     );
-  } else if (cards.length >= 3) {
+  } else {
     return (
       <div style={{ border: "solid" }}>
         <h3>Card {cardsState.index + 1} of {cards.length}</h3>
@@ -89,12 +99,6 @@ function StudyCard( { id } ) {
         </button>
       </div>
     );
-  } else {
-    return (
-      <>
-        loading...
-      </>
-    )
   }
 }
 
