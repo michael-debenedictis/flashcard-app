@@ -6,9 +6,18 @@ function Home() {
   const [decks, setDecks] = useState([])
 
   useEffect(() => {
+    const abortController = new AbortController();
     async function loadDecks() {
-      const response = await listDecks();
-      setDecks([...response]);
+      const response = await listDecks(abortController.signal);
+      try {
+        setDecks([...response]);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Ignore `AbortError`
+        } else {
+          throw error;
+        }
+      }
     }
     loadDecks();
   },[]);

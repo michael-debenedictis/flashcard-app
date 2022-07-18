@@ -8,9 +8,18 @@ function EditCards() {
   const id = params.cardId;
   const [card, setCard] = useState({});
   useEffect(() => {
+    const abortController = new AbortController();
     async function loadCard() {
-      const response = await readCard(id);
-      setCard({...response});
+      const response = await readCard(id, abortController.signal);
+      try {
+        setCard({...response});
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Ignore `AbortError`
+        } else {
+          throw error;
+        }
+      }
     }
     loadCard();
   },[]);

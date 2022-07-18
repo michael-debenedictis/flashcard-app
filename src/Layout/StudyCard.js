@@ -30,7 +30,6 @@ function StudyCard( { id } ) {
       } catch (error) {
         if (error.name === "AbortError") {
           // Ignore `AbortError`
-          console.log('sup')
         } else {
           throw error;
         }

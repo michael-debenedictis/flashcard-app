@@ -12,9 +12,19 @@ function StudyScreen() {
   const params = useParams();
   const id = params.deckId;
   useEffect(() => {
+    const abortController = new AbortController();
     async function loadDeck() {
-      const response = await readDeck(id);
-      setDeck({ ...response });
+      const response = await readDeck(id, abortController.signal);
+      try {
+        setDeck({ ...response });
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Ignore `AbortError`
+          console.log('sup')
+        } else {
+          throw error;
+        }
+      }
     }
     loadDeck();
   }, []);

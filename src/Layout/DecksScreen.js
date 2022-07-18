@@ -11,19 +11,38 @@ function DecksScreen() {
   const id = params.deckId;
 
   useEffect(() => {
+    const abortController = new AbortController();
     async function loadDeck() {
-      const response = await readDeck(id);
-      setDeck({ ...response });
+      const response = await readDeck(id, abortController.signal);
+      try {
+        setDeck({ ...response });
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Ignore `AbortError`
+          console.log('sup')
+        } else {
+          throw error;
+        }
+      }
     }
     loadDeck();
   }, []);
 
   useEffect(() => {
+    const abortController = new AbortController();
     async function loadCards() {
-      const response = await readCards();
-      if (response) {
-        if (response.length > 0) {
-          setCards([...response]);
+      const response = await readCards(abortController.signal);
+      try {
+        if (response) {
+          if (response.length > 0) {
+            setCards([...response]);
+          }
+        }
+      } catch (error) {
+        if (error.name === "AbortError") {
+          // Ignore `AbortError`
+        } else {
+          throw error;
         }
       }
     }
