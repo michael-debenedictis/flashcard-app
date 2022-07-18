@@ -67,7 +67,7 @@ function StudyCard( { id } ) {
     })
   }
 
-  if (cardsState.front && cards.length >= 3) {
+  if (cardsState.front) {
     return (
       <div style={{ border: "solid" }}>
         <h3>Card {cardsState.index + 1} of {cards.length}</h3>
@@ -78,7 +78,7 @@ function StudyCard( { id } ) {
         </button>
       </div>
     );
-  } else if (cards.length >= 3) {
+  } else {
     return (
       <div style={{ border: "solid" }}>
         <h3>Card {cardsState.index + 1} of {cards.length}</h3>
@@ -89,12 +89,6 @@ function StudyCard( { id } ) {
         </button>
       </div>
     );
-  } else {
-    return (
-      <>
-        loading...
-      </>
-    )
   }
 }
 
