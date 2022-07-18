@@ -1,9 +1,33 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { readCards } from '../utils/api/index.js';
 import { useHistory } from 'react-router-dom';
 
-function StudyCard( { id, cards } ) {
+function StudyCard( { id } ) {
   const history = useHistory();
+  const initialCards = [{
+    front: '',
+    back: '',
+    deckId: '',
+    id: ''
+  }]
+  const [cards, setCards] = useState([...initialCards]);
+  useEffect(() => {
+    async function loadCards() {
+      const response = await readCards();
+      console.log(response, 'hi')
+      if (response) {
+        if (response.length > 0) {
+          const filtered = response.filter(item => item.deckId === parseFloat(id))
+          console.log(filtered)
+          if (filtered.length > 0) {
+            setCards([...filtered]);
+          }
+        }
+      }
+    }
+    loadCards();
+  }, []);
   const initialCardsState = {
     front: true,
     index: 0
@@ -42,7 +66,7 @@ function StudyCard( { id, cards } ) {
       }
     })
   }
-  console.log('hi')
+
   if (cardsState.front && cards.length >= 3) {
     return (
       <div style={{ border: "solid" }}>
@@ -65,6 +89,12 @@ function StudyCard( { id, cards } ) {
         </button>
       </div>
     );
+  } else {
+    return (
+      <>
+        loading...
+      </>
+    )
   }
 }
 

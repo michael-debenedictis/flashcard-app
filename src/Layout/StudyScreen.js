@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
-import { readDeck, readCards } from "../utils/api";
+import { readDeck } from "../utils/api";
 import StudyCard from './StudyCard';
 
 function StudyScreen() {
@@ -18,41 +18,8 @@ function StudyScreen() {
     }
     loadDeck();
   }, []);
-  const initialCards = [{
-    front: '',
-    back: '',
-    deckId: '',
-    id: ''
-  }]
-  const [cards, setCards] = useState([...initialCards]);
-  useEffect(() => {
-    const abortController = new AbortController();
-    async function loadCards() {
-      try {
-        const response = await readCards(abortController.signal)
-        console.log(response, 'hi')
-        if (response) {
-          if (response.length > 0) {
-            const filtered = response.filter(item => item.deckId === parseFloat(id))
-            console.log(filtered)
-            if (filtered.length > 0) {
-              setCards([...filtered]);
-            }
-          }
-        }
-      } catch (error) {
-        if (error.name === "AbortError") {
-          // Ignore `AbortError`
-          console.log('sup')
-        } else {
-          throw error;
-        }
-      }
-    }
-    loadCards();
-  }, [id, deck]);
-  console.log(cards.length, 'hi')
-  if (cards.length < 3) {
+  console.log(deck.cards[0])
+  if (deck.cards.length < 3) {
     return (
       <>
         <h3>Study: </h3>
@@ -68,7 +35,7 @@ function StudyScreen() {
         <h3>Study: </h3>
         <h2>{deck.name}</h2>
         <div style={{border: 'solid'}} >
-          <StudyCard id={id} cards={cards} />
+          <StudyCard id={id} />
         </div>
       </>
       )
