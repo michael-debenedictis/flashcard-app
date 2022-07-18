@@ -42,7 +42,7 @@ function DecksScreen() {
   }
   console.log(cards)
 
-  if (deck.id && cards.length > 0) {
+  
     return (
       <>
         <h3>{deck.name}</h3>
@@ -79,9 +79,7 @@ function DecksScreen() {
         </ul>
       </>
     );
-  } else {
-    return <p>loading...</p>;
-  }
-}
+        }
+
 
 export default DecksScreen;

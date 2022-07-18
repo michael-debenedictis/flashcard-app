@@ -66,7 +66,8 @@ function AddCards() {
 
   return (
     <>
-      <h2>{deck.name}: Add Card</h2>
+      <h2>{deck.name}</h2>
+      <h3>Add Card</h3>
       <form name='addcards' onSubmit={handleSubmit} >
         <div>
           <label htmlFor='front'>
