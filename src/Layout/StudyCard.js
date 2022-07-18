@@ -42,7 +42,7 @@ function StudyCard( { id, cards } ) {
       }
     })
   }
-
+  console.log('hi')
   if (cardsState.front && cards.length >= 3) {
     return (
       <div style={{ border: "solid" }}>
