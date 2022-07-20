@@ -27,20 +27,23 @@ function Home() {
       return
     }
   }
-  console.log(decks, 'hi')
   return (
     <>
       {decks.map((item) => {
         return (
-          <div key={item.id} style={{border: 'solid', margin: '5px'}} >
-            <div>
-              <h3>{item.name}</h3>
-              <p>{item.cards.length === 1 ? '1 card' : `${item.cards.length} cards`}</p>
+          <div key={item.id} style={{ margin: '15px', border: '2px solid gray', borderRadius: '5px' }} >
+            <div style={{margin: '10px'}}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', margin: '5px' }} >
+                <h3>{item.name}</h3>
+                <p>{item.cards.length === 1 ? '1 card' : `${item.cards.length} cards`}</p>
+              </div>
+              <p style={{ margin: '5px' }} >{item.description}</p>
+              <div style={{ margin: '5px', display: 'flex', gap: '5px' }} >
+                <Link style={{ background: 'gray', color: 'white', padding: '2px', border: '3px outset gray', borderRadius: '5px' }} to={`/decks/${item.id}`}>View</Link>
+                <Link style={{ background: '#3364FF', color: 'white', padding: '2px', border: '3px outset #3364FF', borderRadius: '5px' }} to={`/decks/${item.id}/study`}>Study</Link>
+                <button id={item.id} onClick={handleDelete} style={{ alignSelf: 'flex-end', background: '#C70039', color: 'white', border: '3px outset #C70039', borderRadius: '5px' }} >Delete</button>
+              </div>
             </div>
-            <p>{item.description}</p>
-            <Link to={`/decks/${item.id}`}>View</Link>
-            <Link to={`/decks/${item.id}/study`}>Study</Link>
-            <button id={item.id} onClick={handleDelete}>Delete</button>
           </div>
         )
       })}

@@ -26,27 +26,21 @@ function Layout() {
             <Home />
           </Route>
           <Route exact path='/decks/new' >
-            <BreadCrumb />
             <CreateScreen />
           </Route>
           <Route exact path="/decks/:deckId" >
-            <BreadCrumb />
             <DecksScreen />
           </Route>
           <Route exact path="/decks/:deckId/study" >
-            <BreadCrumb />
             <StudyScreen />
           </Route>
           <Route exact path="/decks/:deckId/cards/new" >
-            <BreadCrumb />
             <AddCards />
           </Route>
           <Route exact path="/decks/:deckId/edit" >
-            <BreadCrumb />
             <EditDecks />
           </Route>
           <Route exact path="/decks/:deckId/cards/:cardId/edit" >
-            <BreadCrumb />
             <EditCards />
           </Route>
           <Route>

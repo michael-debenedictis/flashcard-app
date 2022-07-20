@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { readDeck, readCards } from "../utils/api";
+import BreadCrumb from "./BreadCrumb";
 import StudyCard from './StudyCard';
 
 function StudyScreen() {
@@ -57,9 +58,9 @@ function StudyScreen() {
   } else {
     return (
       <>
-        <h3>Study: </h3>
-        <h2>{deck.name}</h2>
-        <div style={{border: 'solid'}} >
+        <BreadCrumb name={deck.name} />
+        <h2 style={{ margin: '10px' }} >Study: {deck.name}</h2>
+        <div style={{ border: '2px solid gray', borderRadius: '5px' }}>
           <StudyCard cards={cards} />
         </div>
       </>

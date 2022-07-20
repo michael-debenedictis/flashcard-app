@@ -48,22 +48,22 @@ function StudyCard( {cards} ) {
 
   if (cardsState.front) {
     return (
-      <div style={{ border: "solid" }}>
+      <div style={{ margin: '10px' }} >
         <h3>Card {cardsState.index + 1} of {cards.length}</h3>
         {cards[cardsState.index].front}
         <br/>
-        <button id="flip" onClick={flipHandle} >
+        <button id="flip" onClick={flipHandle} style={{ marginTop: '15px', background: 'gray', color: 'white', border: '3px outset gray', borderRadius: '5px' }}>
           Flip
         </button>
       </div>
     );
   } else {
     return (
-      <div style={{ border: "solid" }}>
+      <div style={{ margin: '10px' }} >
         <h3>Card {cardsState.index + 1} of {cards.length}</h3>
         {cards[cardsState.index].back}
         <br/>
-        <button id="next" onClick={handleNext} >
+        <button id="next" onClick={handleNext} style={{ marginTop: '15px', background: 'gray', color: 'white', border: '3px outset gray', borderRadius: '5px' }} >
           Next
         </button>
       </div>
