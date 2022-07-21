@@ -1,12 +1,36 @@
 import React from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
-import { createCard, updateCard } from "../utils/api/index.js";
+import { useEffect, useState } from "react";
+import { createCard, updateCard, readDeck, readCard, readCards } from "../utils/api/index.js";
 
 function CardForm( { form, setForm, formInitial, handleChange, card } ) {
   const history = useHistory();
+
+  const [deck, setDeck] = useState({});
+  const [cardsNum, setCardsNum] = useState();
+  
+
   const params = useParams();
   const id = params.deckId;
   const cardId = params.cardId;
+
+  useEffect(() => {
+    async function loadDeck() {
+      const response = await readDeck(id);
+      setDeck({...response});
+    }
+    loadDeck();
+  },[]);
+
+  useEffect(() => {
+    async function loadCards() {
+      const response = await readCards();
+      if (response) {
+        setCardsNum(response.length)
+      }
+    }
+    loadCards();
+  },[]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

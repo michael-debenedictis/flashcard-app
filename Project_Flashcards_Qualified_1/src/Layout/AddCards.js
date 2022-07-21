@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { readDeck } from "../utils/api/index.js";
-import { useParams } from "react-router-dom";
+import { readDeck, readCards, createCard } from "../utils/api/index.js";
+import { Link, useParams } from "react-router-dom";
 import CardForm from "./CardForm.js";
 import BreadCrumb from "./BreadCrumb.js";
 
@@ -17,7 +17,7 @@ function AddCards() {
       setDeck({...response});
     }
     loadDeck();
-  }, [id]);
+  },[]);
 
 
   const formInitial = {

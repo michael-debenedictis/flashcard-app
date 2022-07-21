@@ -1,5 +1,5 @@
 import React from "react";
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 
 function StudyCard( {cards} ) {
@@ -17,7 +17,9 @@ function StudyCard( {cards} ) {
       }
     })
   }
-  
+  if (cards.length > 2 ) {
+    const ready = true
+  }
   const handleNext = () => {
     if (cardsState.index === cards.length - 1) {
       const confirmation = window.confirm(`Restart cards?\nClick 'cancel' to return to the home page`);

@@ -12,6 +12,13 @@ function StudyScreen() {
   const [deck, setDeck] = useState({...deckInitial});
   const params = useParams();
   const id = params.deckId;
+  useEffect(() => {
+    async function loadDeck() {
+      const response = await readDeck(id);
+      setDeck({ ...response });
+    }
+    loadDeck();
+  }, []);
 
   const initialCards = [{
     front: '',
@@ -20,34 +27,22 @@ function StudyScreen() {
     id: ''
   }]
   const [cards, setCards] = useState([...initialCards]);
-
   useEffect(() => {
-    const abortController = new AbortController();
-    async function loadData() {
-      try {
-        const response = await readCards(abortController.signal)
-        console.log(response, 'hi')
-        if (response) {
-          if (response.length > 0) {
-            const filtered = response.filter(item => item.deckId === parseFloat(id));
-            console.log(filtered)
-            if (filtered.length > 0) {
-              setCards([...filtered]);
-            }
+    async function loadCards() {
+      const response = await readCards();
+      console.log(response, 'hi')
+      if (response) {
+        if (response.length > 0) {
+          const filtered = response.filter(item => item.deckId === parseFloat(id));
+          console.log(filtered)
+          if (filtered.length > 0) {
+            setCards([...filtered]);
           }
-        }
-        const deckResponse = await readDeck(id, abortController.signal)
-        setDeck({ ...deckResponse });
-      } catch (error) {
-        if (error.name === "AbortError") {
-          // Ignore `AbortError`
-        } else {
-          throw error;
         }
       }
     }
-    loadData();
-  }, [id]);
+    loadCards();
+  }, []);
 
   console.log(deck.cards[0])
   if (deck.cards.length < 3) {
@@ -63,7 +58,6 @@ function StudyScreen() {
   } else {
     return (
       <>
-      <p style={{display: 'none'}} >Card 1 of 3</p>
         <BreadCrumb name={deck.name} />
         <h2 style={{ margin: '10px' }} >Study: {deck.name}</h2>
         <div style={{ border: '2px solid gray', borderRadius: '5px' }}>

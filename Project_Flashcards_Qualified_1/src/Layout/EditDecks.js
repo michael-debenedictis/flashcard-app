@@ -17,7 +17,7 @@ function EditDecks() {
         setCards([...response.cards]);
       }
       loadDeck();
-    }, [id]);
+    },[]);
 
     const handleSubmit = async (event) => {
       event.preventDefault();

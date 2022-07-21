@@ -9,6 +9,11 @@
       "name": "React Router",
       "description": "React Router is a collection of navigational components that compose declaratively with your application.",
       "id": 2
+    },
+    {
+      "id": 3,
+      "name": "MockDeck 3",
+      "description": "g"
     }
   ],
   "cards": [
@@ -21,18 +26,6 @@
     {
       "front": "g",
       "back": "g",
-      "deckId": 2,
-      "id": 2
-    },
-    {
-      "front": "g",
-      "back": "h",
-      "deckId": 1,
-      "id": 3
-    },
-    {
-      "front": "g",
-      "back": "g",
       "deckId": 1,
       "id": 4
     },
@@ -41,6 +34,12 @@
       "back": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji\";",
       "deckId": 1,
       "id": 8
+    },
+    {
+      "front": "g",
+      "back": "g",
+      "deckId": 3,
+      "id": 9
     }
   ]
 }

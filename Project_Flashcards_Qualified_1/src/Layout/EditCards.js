@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
-import { readCard } from '../utils/api/index.js';
+import { Link, useParams, useHistory } from 'react-router-dom';
+import { readCard, updateCard } from '../utils/api/index.js';
 import BreadCrumb from "./BreadCrumb.js";
 import CardForm from './CardForm.js';
 
 function EditCards() {
+  const history = useHistory();
   const params = useParams();
   const cardId = params.cardId;
   const [card, setCard] = useState({});
@@ -14,7 +15,18 @@ function EditCards() {
       setCard({...response});
     }
     loadCard();
-  }, [cardId]);
+  },[]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const cardUpdated = {
+        ...card,
+        front: event.target.front.value,
+        back: event.target.back.value
+    };
+    updateCard(cardUpdated);
+    history.push(`/decks/${params.deckId}`);
+  }
 
   return (
     <>

@@ -12,30 +12,24 @@ function DecksScreen() {
   const id = params.deckId;
 
   useEffect(() => {
-    const abortController = new AbortController();
-    async function loadCardsDeck() {
-      try {
-        const response = await readCards(abortController.signal);
-        if (response) {
-          if (response.length > 0) {
-            setCards([...response]);
-          }
-        }
-        const deckResponse = await readDeck(id, abortController.signal)
-        await setTimeout(() => {
-          setDeck({ ...deckResponse });
-        }, 3500);
-        
-      } catch (error) {
-        if (error.name === "AbortError") {
-          // Ignore `AbortError`
-        } else {
-          throw error;
+    async function loadDeck() {
+      const response = await readDeck(id);
+      setDeck({ ...response });
+    }
+    loadDeck();
+  }, []);
+
+  useEffect(() => {
+    async function loadCards() {
+      const response = await readCards();
+      if (response) {
+        if (response.length > 0) {
+          setCards([...response]);
         }
       }
     }
-    loadCardsDeck();
-  }, [id]);
+    loadCards();
+  }, []);
 
   const handleDeleteCard = ( { target } ) => {
     deleteCard(target.id);
@@ -74,13 +68,12 @@ function DecksScreen() {
                     </div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'flex-end' }} >
-                    <Link to={`/decks/${id}/cards/${item.id}/edit`} style={{ background: 'gray', color: 'white', padding: '2px', border: '3px outset gray', borderRadius: '5px', margin: '5px' }} >Edit</Link>
-                    <button style={{ alignSelf: 'flex-end', background: '#C70039', color: 'white', border: '3px outset #C70039', borderRadius: '5px', margin: '5px' }} id={item.id} onClick={handleDeleteCard}>Delete</button>
+                    <Link to={`/decks/${id}/cards/${item.id}/edit`} style={{ background: 'gray', color: 'white', padding: '2px', border: '3px outset gray', borderRadius: '5px' }} >Edit</Link>
+                    <button style={{ alignSelf: 'flex-end', background: '#C70039', color: 'white', border: '3px outset #C70039', borderRadius: '5px' }} id={item.id} onClick={handleDeleteCard}>Delete</button>
                   </div>
                 </div>
               );
             }
-            return null;
           })}
         </ul>
       </>
