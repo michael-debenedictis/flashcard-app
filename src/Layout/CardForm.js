@@ -33,14 +33,14 @@ function CardForm( { form, setForm, formInitial, handleChange, card } ) {
           <label htmlFor='front'>
             Front
             <br/>
-            <textarea id='front' name='front' onChange={handleChange} value={cardId ? null : form.front} required placeholder='Front side of card' defaultValue={cardId ? card.front : null} style={{ borderRadius: '5px', width: '500px' }} />
+            <textarea id='front' name='front' onChange={handleChange} value={cardId ? undefined : form.front} required placeholder='Front side of card' defaultValue={cardId ? card.front : undefined} style={{ borderRadius: '5px', width: '500px' }} />
           </label>
         </div>
         <div>
           <label htmlFor='back'>
             Back
             <br/>
-            <textarea id='back' name='back' onChange={handleChange} value={cardId ? null : form.back} required placeholder='Back side of card' defaultValue={cardId ? card.back : null} style={{ borderRadius: '5px', width: '500px' }} />
+            <textarea id='back' name='back' onChange={handleChange} value={cardId ? undefined : form.back} required placeholder='Back side of card' defaultValue={cardId ? card.back : undefined} style={{ borderRadius: '5px', width: '500px' }} />
           </label>
         </div>
         <div>

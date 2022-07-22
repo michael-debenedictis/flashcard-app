@@ -26,7 +26,6 @@ function StudyScreen() {
     async function loadData() {
       try {
         const response = await readCards(abortController.signal)
-        console.log(response, 'hi')
         if (response) {
           if (response.length > 0) {
             const filtered = response.filter(item => item.deckId === parseFloat(id));
@@ -49,7 +48,6 @@ function StudyScreen() {
     loadData();
   }, [id]);
 
-  console.log(deck.cards[0])
   if (deck.cards.length < 3) {
     return (
       <>
